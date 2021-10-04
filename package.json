@@ -1,0 +1,23 @@
+{
+  "name": "codlection-themis-server",
+  "version": "1.0.0",
+  "description": "Themis-judge-server with firebase",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bvquoc/codlection-themis-server.git"
+  },
+  "author": "Bui Vi Quoc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bvquoc/codlection-themis-server/issues"
+  },
+  "homepage": "https://github.com/bvquoc/codlection-themis-server#readme",
+  "dependencies": {
+    "firebase": "^8.10.0",
+    "query-string": "^7.0.1"
+  }
+}
