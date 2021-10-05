@@ -11,6 +11,6 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-const submitDir = './Logs';
+const submitDir = '.';
 
 module.exports = { app, db, submitDir, firebase };
