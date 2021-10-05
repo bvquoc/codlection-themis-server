@@ -1,0 +1,20 @@
+z‣frog1: 100.00
+frog1.cpp
+"C:\Program Files (x86)\Themis\gcc\bin\g++.exe" -std=c++14 "frog1.cpp" -pipe -O2 -s -static -lm -x c++ -o"frog1.exe" -Wl,--stack,66060288|@WorkDir=C:\ProgramData\ThemisWorkSpace\WaitRoom9482\
+Dịch thành công.
+
+z‣frog1‣Test01: 9.09
+Thời gian ≈ 0.009095864 giây
+Kết quả khớp đáp án!
+z‣frog1‣Test02: 9.09
+Thời gian ≈ 0.008915812 giây
+Kết quả khớp đáp án!
+z‣frog1‣Test03: 9.09
+Thời gian ≈ 0.009126014 giây
+Kết quả khớp đáp án!
+z‣frog1‣Test04: 9.09
+Thời gian ≈ 0.009161854 giây
+Kết quả khớp đáp án!
+z‣frog1‣Test05: 9.09
+Thời gian ≈ 0.009495788 giây
+Kết quả khớp đáp án!
