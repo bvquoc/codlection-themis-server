@@ -26,22 +26,32 @@ function watchLogs(logDir) {
   watcher.on('add', function (path) {
     const tmpArr = path.split('/');
     const filename = tmpArr[tmpArr.length - 1];
-    console.log(filename);
     if (typeof filename === 'string' && filename.slice(-3) === 'log') {
-      fs.readFile(path, { encoding: 'utf8', flag: 'r' }, function (err, data) {
-        if (err) return console.log(err);
-        parseLogs(data);
-        const props = getArgs(filename);
-        db.collection('submissions')
-          .doc(props.submissionId)
-          .update({
-            ...props,
-            ...parseLogs(data),
-            status: 'complete',
-          })
-          .then(() => console.log('Updated submission', props.submissionId))
-          .catch((error) => console.error('Error adding document: ', error));
-      });
+      const props = getArgs(filename);
+      const subId = props.submissionId;
+      console.log(subId);
+
+      db.collection('submissions')
+        .doc(props.submissionId)
+        .get()
+        .then((doc) => {
+          if (doc.exists && doc.data().status === 'pending') {
+            fs.readFile(path, { encoding: 'utf8', flag: 'r' }, function (err, data) {
+              if (err) return console.log(err);
+              if (data === '') return;
+              db.collection('submissions')
+                .doc(props.submissionId)
+                .update({
+                  ...props,
+                  ...parseLogs(data),
+                  status: 'complete',
+                })
+                .then(() => console.log('Updated submission', props.submissionId))
+                .catch((error) => console.error('Error update submission: ', error));
+            });
+          }
+        })
+        .catch((error) => console.log('Error getting document:', error));
     }
   });
 }
