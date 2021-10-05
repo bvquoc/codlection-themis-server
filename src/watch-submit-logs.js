@@ -6,8 +6,9 @@ function getArgs(filename) {
   let tmpArr = filename.split('.');
   const language = tmpArr[tmpArr.length - 2];
   tmpArr = tmpArr[0].split(']');
-  const userId = tmpArr[0].slice(1);
   const problemId = tmpArr[1].slice(1);
+  tmpArr = tmpArr[0].split('[');
+  const userId = tmpArr[tmpArr.length - 1];
   return {
     userId,
     problemId,
@@ -21,7 +22,7 @@ function watchLogs(logDir) {
   watcher.on('add', function (path) {
     const tmpArr = path.split('/');
     const filename = tmpArr[tmpArr.length - 1];
-    console.log(tmpArr, filename);
+    console.log(filename);
     if (typeof filename === 'string' && filename.slice(-3) === 'log') {
       const data = getArgs(filename);
       console.log('Writing', data);
