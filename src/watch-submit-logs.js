@@ -18,7 +18,7 @@ function getArgs(filename) {
 function watchLogs(logDir) {
   const watcher = chokidar.watch(logDir);
   console.log(`Watching ${logDir} folder...`);
-  watcher.on('change', function (path) {
+  watcher.on('add', function (path) {
     const tmpArr = path.split('/');
     const filename = tmpArr[tmpArr.length - 1];
     console.log(tmpArr, filename);
