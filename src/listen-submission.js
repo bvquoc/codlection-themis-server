@@ -15,8 +15,8 @@ const makeFile = (data) => {
 };
 
 subscribeSubmissionsByStatus = (status = 'pending') => {
-  this.unsubcribesubmissons = db
-    .collection('submissons')
+  this.unsubcribesubmissions = db
+    .collection('submissions')
     .where('status', '==', status)
     .orderBy('sentAt')
     .onSnapshot((snapshot) => {
@@ -32,7 +32,7 @@ subscribeSubmissionsByStatus = (status = 'pending') => {
           // handle on message modified
         }
         if (change.type === 'removed') {
-          // handle on remove submissons
+          // handle on remove submissions
         }
       });
     });
