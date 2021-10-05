@@ -7,11 +7,11 @@ const getTestDetail = (rawPoint, rawTime, rawStatus) => {
   if (score === 0) {
     status = rawTime;
     time = NaN;
-    return [2, { test, score, time, status }];
+    return [1, { test, score, time, status }];
   }
   time = Number.parseFloat(rawTime.split(' ')[3]);
   status = rawStatus;
-  return [3, { test, score, time, status }];
+  return [2, { test, score, time, status }];
 };
 
 function parseLogs(data) {
@@ -55,5 +55,11 @@ function parseLogs(data) {
   console.log(details);
   return result;
 }
+
+// const fs = require('fs');
+// fs.readFile('./[ziwo][vaca]id123.cpp.log', { encoding: 'utf8', flag: 'r' }, function (err, data) {
+//   if (err) return console.log(err);
+//   console.log(parseLogs(data));
+// });
 
 module.exports = { parseLogs };
