@@ -1,5 +1,5 @@
 const getTestDetail = (rawPoint, rawTime, rawStatus) => {
-  if (!rawPoint || !rawTime || !rawStatus) return {};
+  if (!rawPoint || !rawTime || !rawStatus) return undefined;
   let test, score, time, status;
   rawPoint = rawPoint.split('‣')[rawPoint.split('‣').length - 1];
   test = rawPoint.split(':')[0];
@@ -43,14 +43,16 @@ function parseLogs(data) {
 
   data = data.slice(5);
   let i = 0;
-  console.log(getTestDetail(data[i], data[i + 1], data[i + 2]));
   while (i < data.length) {
     const cur = getTestDetail(data[i], data[i + 1], data[i + 2]);
-    details.push(cur[1]);
-    i += cur[0];
+    if (cur) {
+      details.push(cur[1]);
+      i += cur[0];
+    }
+    i++;
   }
   result.details = details;
-  console.log(result);
+  console.log(details);
   return result;
 }
 
