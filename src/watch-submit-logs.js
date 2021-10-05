@@ -31,16 +31,16 @@ function watchLogs(logDir) {
       fs.readFile(path, { encoding: 'utf8', flag: 'r' }, function (err, data) {
         if (err) return console.log(err);
         parseLogs(data);
-        // const props = getArgs(filename);
-        // db.collection('submissions')
-        //   .doc(props.submissionId)
-        //   .update({
-        //     ...props,
-        //     ...parseLogs(data),
-        //     status: 'complete',
-        //   })
-        //   .then(() => console.log('Updated submission', props.submissionId))
-        //   .catch((error) => console.error('Error adding document: ', error));
+        const props = getArgs(filename);
+        db.collection('submissions')
+          .doc(props.submissionId)
+          .update({
+            ...props,
+            ...parseLogs(data),
+            status: 'complete',
+          })
+          .then(() => console.log('Updated submission', props.submissionId))
+          .catch((error) => console.error('Error adding document: ', error));
       });
     }
   });
