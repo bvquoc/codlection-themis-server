@@ -1,5 +1,7 @@
 const { db } = require('../config.js');
 const chokidar = require('chokidar');
+const fs = require('fs');
+const { parseLogs } = require('./log-parser.js');
 
 function getArgs(filename) {
   if (!filename || typeof filename !== 'string' || filename.length <= 4 || filename.slice(-3) !== 'log') return;
@@ -26,16 +28,19 @@ function watchLogs(logDir) {
     const filename = tmpArr[tmpArr.length - 1];
     console.log(filename);
     if (typeof filename === 'string' && filename.slice(-3) === 'log') {
-      const data = getArgs(filename);
-      console.log('Writing', data);
-      db.collection('logs')
-        .add(data)
-        .then((docRef) => {
-          console.log('Document written with ID: ', docRef.id);
-        })
-        .catch((error) => {
-          console.error('Error adding document: ', error);
-        });
+      fs.readFile(path, { encoding: 'utf8', flag: 'r' }, function (err, data) {
+        if (err) return console.log(err);
+        const props = getArgs(filename);
+        db.collection('submissions')
+          .doc('0001')
+          .update({
+            ...props,
+            ...parseLogs(data),
+            status: 'complete',
+          })
+          .then(() => console.log('Updated submission', props.submissionId))
+          .catch((error) => console.error('Error adding document: ', error));
+      });
     }
   });
 }
