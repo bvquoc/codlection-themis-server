@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/bvquoc/codlection-themis-server#readme",
   "dependencies": {
+    "chokidar": "^3.5.2",
     "firebase": "^8.10.0",
     "query-string": "^7.0.1"
   }
