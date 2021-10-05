@@ -54,15 +54,4 @@ function parseLogs(data) {
   return result;
 }
 
-const fs = require('fs');
-fs.readFile(
-  './[GvcgU0XmbBUP2Q7RxDolqk6oHeo2][wosub]2kVTkqj8gcBtNt2m0luN.cpp.log',
-  { encoding: 'utf8', flag: 'r' },
-  function (err, data) {
-    if (err) return console.log(err);
-    // console.log(data.split('GvcgU0XmbBUP2Q7RxDolqk6oHeo2‣change').join('').split('\r\n'));
-    parseLogs(data);
-  },
-);
-
 module.exports = { parseLogs };
