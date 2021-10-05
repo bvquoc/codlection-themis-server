@@ -1,4 +1,4 @@
-const { db, submitDir } = require('./config.js');
+const { db, submitDir } = require('../config.js');
 const chokidar = require('chokidar');
 const fs = require('fs');
 
