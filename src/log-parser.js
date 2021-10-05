@@ -1,12 +1,17 @@
 const getTestDetail = (rawPoint, rawTime, rawStatus) => {
   if (!rawPoint || !rawTime || !rawStatus) return {};
-  const result = {};
+  let test, score, time, status;
   rawPoint = rawPoint.split('‣')[rawPoint.split('‣').length - 1];
-  result.test = rawPoint.split(':')[0];
-  result.score = Number.parseFloat(rawPoint.split(':')[1].trim());
-  result.time = Number.parseFloat(rawTime.split(' ')[3].trim());
-  result.status = rawStatus;
-  return result;
+  test = rawPoint.split(':')[0];
+  score = Number.parseFloat(rawPoint.split(':')[1]);
+  if (score === 0) {
+    status = rawTime;
+    time = NaN;
+    return [2, { test, score, time, status }];
+  }
+  time = Number.parseFloat(rawTime.split(' ')[3]);
+  status = rawStatus;
+  return [3, { test, score, time, status }];
 };
 
 function parseLogs(data) {
@@ -18,15 +23,46 @@ function parseLogs(data) {
   result.userId = tmp[0];
   tmp = tmp[1].split(': ');
   result.problemId = tmp[0];
+
+  if ('ℱ Dịch lỗi' === tmp[1]) {
+    result.score = 0;
+    result['compile_status'] = tmp[1];
+    result['compile_cmd'] = data[2];
+    for (let i = 3; i < data.length; i++) {
+      if (data[i] === '') continue;
+      result['compile_status'] += `\n${data[i]}`;
+    }
+    result.details = [];
+    return result;
+  }
+
   result.score = Number.parseFloat(tmp[1]);
   result.filename = data[1];
   result['compile_cmd'] = data[2];
   result['compile_status'] = data[3];
 
-  for (let i = 5; i + 2 < data.length; i += 3) details.push(getTestDetail(data[i], data[i + 1], data[i + 2]));
+  data = data.slice(5);
+  let i = 0;
+  console.log(getTestDetail(data[i], data[i + 1], data[i + 2]));
+  while (i < data.length) {
+    const cur = getTestDetail(data[i], data[i + 1], data[i + 2]);
+    details.push(cur[1]);
+    i += cur[0];
+  }
   result.details = details;
-
+  console.log(result);
   return result;
 }
+
+const fs = require('fs');
+fs.readFile(
+  './[GvcgU0XmbBUP2Q7RxDolqk6oHeo2][wosub]2kVTkqj8gcBtNt2m0luN.cpp.log',
+  { encoding: 'utf8', flag: 'r' },
+  function (err, data) {
+    if (err) return console.log(err);
+    // console.log(data.split('GvcgU0XmbBUP2Q7RxDolqk6oHeo2‣change').join('').split('\r\n'));
+    parseLogs(data);
+  },
+);
 
 module.exports = { parseLogs };

@@ -14,7 +14,7 @@ const makeFile = (data) => {
   });
 };
 
-subscribeSubmissonsByStatus = (status = 'pending') => {
+subscribeSubmissionsByStatus = (status = 'pending') => {
   this.unsubcribesubmissons = db
     .collection('submissons')
     .where('status', '==', status)
@@ -38,4 +38,4 @@ subscribeSubmissonsByStatus = (status = 'pending') => {
     });
 };
 
-subscribeSubmissonsByStatus('pending');
+subscribeSubmissionsByStatus('pending');

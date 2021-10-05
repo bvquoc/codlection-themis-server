@@ -30,16 +30,17 @@ function watchLogs(logDir) {
     if (typeof filename === 'string' && filename.slice(-3) === 'log') {
       fs.readFile(path, { encoding: 'utf8', flag: 'r' }, function (err, data) {
         if (err) return console.log(err);
-        const props = getArgs(filename);
-        db.collection('submissions')
-          .doc('0001')
-          .update({
-            ...props,
-            ...parseLogs(data),
-            status: 'complete',
-          })
-          .then(() => console.log('Updated submission', props.submissionId))
-          .catch((error) => console.error('Error adding document: ', error));
+        parseLogs(data);
+        // const props = getArgs(filename);
+        // db.collection('submissions')
+        //   .doc(props.submissionId)
+        //   .update({
+        //     ...props,
+        //     ...parseLogs(data),
+        //     status: 'complete',
+        //   })
+        //   .then(() => console.log('Updated submission', props.submissionId))
+        //   .catch((error) => console.error('Error adding document: ', error));
       });
     }
   });
