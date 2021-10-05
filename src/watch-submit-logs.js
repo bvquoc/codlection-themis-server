@@ -6,6 +6,7 @@ function getArgs(filename) {
   let tmpArr = filename.split('.');
   const language = tmpArr[tmpArr.length - 2];
   tmpArr = tmpArr[0].split(']');
+  const submissionId = tmpArr[tmpArr.length - 1];
   const problemId = tmpArr[1].slice(1);
   tmpArr = tmpArr[0].split('[');
   const userId = tmpArr[tmpArr.length - 1];
@@ -13,6 +14,7 @@ function getArgs(filename) {
     userId,
     problemId,
     language,
+    submissionId,
   };
 }
 
