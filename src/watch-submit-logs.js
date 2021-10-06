@@ -53,7 +53,7 @@ function watchLogs(logDir) {
               getUserData(userId, (curUserData) => {
                 const problems = { ...curUserData.problems };
                 problems[cur.problemId] = cur.score;
-                updateUserById(userId, problems);
+                updateUserById(userId, { problems });
               });
             });
           }
