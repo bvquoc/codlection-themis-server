@@ -43,7 +43,7 @@ function parseLogs(data) {
 
   let sliceAt = 5;
   if (result.filename.slice(-3) === '.py') {
-    result['compile_cmd'] = `python3 ${filename}`;
+    result['compile_cmd'] = `python3 ${result.filename}`;
     result['compile_status'] = data[2];
     sliceAt = 4;
   }
