@@ -41,7 +41,14 @@ function parseLogs(data) {
   result['compile_cmd'] = data[2];
   result['compile_status'] = data[3];
 
-  data = data.slice(5);
+  let sliceAt = 5;
+  if (filename.slice(-3) === '.py') {
+    result['compile_cmd'] = `python3 ${filename}`;
+    result['compile_status'] = data[2];
+    sliceAt = 4;
+  }
+
+  data = data.slice(sliceAt);
   let i = 0;
   while (i < data.length) {
     const cur = getTestDetail(data[i], data[i + 1], data[i + 2]);
