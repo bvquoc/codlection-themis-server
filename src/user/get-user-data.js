@@ -1,6 +1,6 @@
 const { db } = require('../../config.js');
 
-function getUserInfo(id, doAfterGet) {
+function getUserData(id, doAfterGet) {
   if (!id || !doAfterGet) return;
   db.collection('users')
     .doc(id)
@@ -9,5 +9,5 @@ function getUserInfo(id, doAfterGet) {
     .catch((err) => console.log(err));
 }
 
-module.exports = { getUserInfo };
-// getUserInfo('t0eFk47dMPM78zGCsHI1RyGk5P93', (data) => console.log(data));
+module.exports = { getUserData };
+// getUserData('t0eFk47dMPM78zGCsHI1RyGk5P93', (data) => console.log(data));

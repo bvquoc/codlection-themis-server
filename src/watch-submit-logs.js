@@ -2,6 +2,8 @@ const { db } = require('../config.js');
 const chokidar = require('chokidar');
 const fs = require('fs');
 const { parseLogs } = require('./log-parser.js');
+const { updateUserById } = require('./user/update-user-data.js');
+const { getUserData } = require('./user/get-user-data.js');
 
 function getArgs(filename) {
   if (!filename || typeof filename !== 'string' || filename.length <= 4 || filename.slice(-3) !== 'log') return;
@@ -48,6 +50,11 @@ function watchLogs(logDir) {
                 .catch((error) => console.error('Error update submission: ', error));
 
               // -> update problem score for userId
+              getUserData(userId, (curUserData) => {
+                const problems = { ...curUserData.problems };
+                problems[cur.problemId] = cur.score;
+                updateUserById(userId, problems);
+              });
             });
           }
         })
