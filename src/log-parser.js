@@ -26,11 +26,11 @@ function parseLogs(data) {
 
   if ('ℱ Dịch lỗi' === tmp[1]) {
     result.score = 0;
-    result['compile_status'] = tmp[1];
+    result['compile_details'] = tmp[1];
     result['compile_cmd'] = data[2];
     for (let i = 3; i < data.length; i++) {
       if (data[i] === '') continue;
-      result['compile_status'] += `\n${data[i]}`;
+      result['compile_details'] += `\n${data[i]}`;
     }
     result.details = [];
     return result;
@@ -39,18 +39,18 @@ function parseLogs(data) {
   result.score = Number.parseFloat(tmp[1]);
   result.filename = data[1];
   result['compile_cmd'] = data[2];
-  result['compile_status'] = data[3];
+  result['compile_details'] = data[3];
 
   let sliceAt = 5;
   if (result.filename.slice(-3) === '.py') {
     result['compile_cmd'] = `python3 ${result.filename}`;
-    result['compile_status'] = data[2];
+    result['compile_details'] = data[2];
     sliceAt = 4;
   }
 
   if (result.filename.slice(-4) === '.pas') {
     result['compile_cmd'] = data[2];
-    result['compile_status'] = data.slice(3, 10).join('\n');
+    result['compile_details'] = data.slice(3, 10).join('\n');
     console.log(data);
     sliceAt = 11;
   }
