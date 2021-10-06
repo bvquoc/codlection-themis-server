@@ -43,12 +43,11 @@ function watchLogs(logDir) {
               const cur = { ...props, ...parseLogs(data) };
               db.collection('submissions')
                 .doc(subId)
-                .update({
-                  ...cur,
-                  status: 'complete',
-                })
+                .update(cur)
                 .then(() => console.log('Updated submission', subId))
                 .catch((error) => console.error('Error update submission: ', error));
+
+              // -> update problem score for userId
             });
           }
         })
