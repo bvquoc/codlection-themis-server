@@ -29,24 +29,25 @@ function watchLogs(logDir) {
     if (typeof filename === 'string' && filename.slice(-3) === 'log') {
       const props = getArgs(filename);
       const subId = props.submissionId;
+      const userId = props.userId;
       console.log(subId);
 
       db.collection('submissions')
-        .doc(props.submissionId)
+        .doc(subId)
         .get()
         .then((doc) => {
           if (doc.exists && doc.data().status === 'pending') {
             fs.readFile(path, { encoding: 'utf8', flag: 'r' }, function (err, data) {
               if (err) return console.log(err);
               if (data === '') return;
+              const cur = { ...props, ...parseLogs(data) };
               db.collection('submissions')
-                .doc(props.submissionId)
+                .doc(subId)
                 .update({
-                  ...props,
-                  ...parseLogs(data),
+                  ...cur,
                   status: 'complete',
                 })
-                .then(() => console.log('Updated submission', props.submissionId))
+                .then(() => console.log('Updated submission', subId))
                 .catch((error) => console.error('Error update submission: ', error));
             });
           }
