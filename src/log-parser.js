@@ -48,6 +48,13 @@ function parseLogs(data) {
     sliceAt = 4;
   }
 
+  if (result.filename.slice(-4) === '.pas') {
+    result['compile_cmd'] = data[2];
+    result['compile_status'] = data.slice(3, 10).join('\n');
+    console.log(data);
+    sliceAt = 11;
+  }
+
   data = data.slice(sliceAt);
   let i = 0;
   while (i < data.length) {
@@ -64,7 +71,7 @@ function parseLogs(data) {
 }
 
 // const fs = require('fs');
-// fs.readFile('./[ziwo][vaca]id123.cpp.log', { encoding: 'utf8', flag: 'r' }, function (err, data) {
+// fs.readFile('./[vq][plus]err.log', { encoding: 'utf8', flag: 'r' }, function (err, data) {
 //   if (err) return console.log(err);
 //   console.log(parseLogs(data));
 // });
