@@ -38,4 +38,5 @@ subscribeSubmissionsByStatus = (status = 'pending') => {
     });
 };
 
-subscribeSubmissionsByStatus('pending');
+module.exports = { subscribeSubmissionsByStatus };
+// subscribeSubmissionsByStatus('pending');

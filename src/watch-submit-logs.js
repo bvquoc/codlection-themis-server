@@ -42,7 +42,7 @@ function watchLogs(logDir) {
             fs.readFile(path, { encoding: 'utf8', flag: 'r' }, function (err, data) {
               if (err) return console.log(err);
               if (data === '') return;
-              const cur = { ...props, ...parseLogs(data) };
+              const cur = { ...props, ...parseLogs(data), status: 'complete' };
               db.collection('submissions')
                 .doc(subId)
                 .update(cur)
