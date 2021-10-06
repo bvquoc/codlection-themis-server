@@ -33,6 +33,7 @@ function parseLogs(data) {
       result['compile_details'] += `\n${data[i]}`;
     }
     result.details = [];
+    result['compile_status'] = 'error';
     return result;
   }
 
@@ -67,6 +68,7 @@ function parseLogs(data) {
   }
   result.details = details;
   console.log(details);
+  result['compile_status'] = 'success';
   return result;
 }
 
